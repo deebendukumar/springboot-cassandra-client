@@ -1,4 +1,4 @@
-#What is Cassandra?
+# What is Cassandra?
 Apache Cassandra is an open-source NoSQL database that is used for handling big data. Apache Cassandra has the capability 
 to handle structured, semi-structured and unstructured data. It was originally developed at Facebook and in 2008 its 
 was open-sourced.  
