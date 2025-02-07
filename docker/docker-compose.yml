@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_USER=admin
+      - CASSANDRA_PASSWORD=admin
+      - CASSANDRA_SEEDS=cassandra-0
+      - CASSANDRA_CLUSTER_NAME=cluster
+      - CASSANDRA_NUM_TOKENS=16
+      - CASSANDRA_DC=dc1
+      - CASSANDRA_RACK=rack0
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=8G
+      - HEAP_NEWSIZE=200M
+    volumes:
+      - ${DATA}/cassandra-node-0/commitlog:/var/lib/cassandra/commitlog
+      - ${DATA}/cassandra-node-0/hints:/var/lib/cassandra/hints
+      - ${DATA}/cassandra-node-0/data:/var/lib/cassandra/data
+      - ${DATA}/cassandra-node-0/saved_caches:/var/lib/cassandra/saved_caches
+      - ${DATA}/cassandra-node-0/logs:/var/log/cassandra
+      - ${PWD}/config/cassandra.yaml:/etc/cassandra/cassandra.yaml
+    networks:
+      - portainer
+    restart: on-failure
+
+networks:
+  portainer:
+    name: portainer
+    external: true
